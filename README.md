@@ -9,12 +9,6 @@ of basic utilities and goodies pre-installed.
 composer create-project lingmyat/filament-starter-kit
 ```
 
-Install dependencies
-
-```bash
-composer update
-```
-
 Run migrations
 
 ```bash
@@ -57,7 +51,6 @@ Then Run This
 
 ```
 php artisan db:seed
-
 ```
 
 Then you need to add this code at vendor/bezhansalleh/filament-exceptions/src/Resources/ExceptionResourse.php, due to the filament-exception plugin not include for multi tenant so we need to manually add that.
