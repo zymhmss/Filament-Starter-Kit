@@ -1,12 +1,13 @@
 {
-    "name": "laravel/laravel",
+    "name": "lingmyat/filament-starter-kit",
+    "description": "Filament starter kit include ready make Multi-Tenant, Filament Shield, Filament Exception, Customize Login Page",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "license": "MIT",
     "keywords": [
         "laravel",
-        "framework"
+        "filament",
+        "starter kit"
     ],
-    "license": "MIT",
     "require": {
         "php": "^8.1",
         "bezhansalleh/filament-exceptions": "^2.0",
@@ -68,6 +69,11 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    "authors": [
+        {
+            "name": "LingMyat",
+            "email": "bizkits223@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
 }
