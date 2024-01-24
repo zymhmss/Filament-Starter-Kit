@@ -1,7 +1,7 @@
 # FilamentStartedKit
 
-FilamentExtendedStarterKit is a [Filament](https://filamentphp.com/) distribution with lots 
-of basic utilities and goodies pre-installed.
+FilamentStarterKit is a [Filament](https://filamentphp.com/) distribution with lots 
+of pre-installed.
 
 ## New Installation
 
