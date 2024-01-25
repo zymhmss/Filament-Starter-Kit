@@ -53,14 +53,7 @@ Then Run This
 php artisan db:seed
 ```
 
-Then you need to add this code at vendor/bezhansalleh/filament-exceptions/src/Resources/ExceptionResourse.php, due to the filament-exception plugin not include for multi tenant so we need to manually add that.
-
-```
-protected static bool $isScopedToTenant = false;
-```
-
-
-In theory, that should be it. You can now go to /admin on your site and you should see the filament 
+You can now go to /admin on your site and you should see the filament 
 login screen. Log in with the user you created in step #4 above. 
 
 In this Starter Kit I use filament shield plugin for roles and permissions. If you want to know more usage and commands check out this repo [BezhanSalleh Filament Shield](https://github.com/bezhanSalleh/filament-shield).
