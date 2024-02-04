@@ -52,3 +52,6 @@ Visit `/admin` on your site, and you should see the Filament login screen. Log i
 This Starter Kit incorporates the Filament Shield plugin for roles and permissions. For additional usage and commands, refer to the [Filament Shield repository](https://github.com/bezhanSalleh/filament-shield).
 
 All relevant migrations, views, and config files have been published to the main Laravel directory tree in the expected locations. If a package, such as the Spatie packages, is based on another package, the base package migrations and config files are also published.
+
+## License 
+The MIT License. Please see [the license file](LICENSE.md) for more information.
