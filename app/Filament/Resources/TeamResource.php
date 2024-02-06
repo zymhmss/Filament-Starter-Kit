@@ -8,8 +8,10 @@ use App\Models\Team;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Notifications\Notification;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -52,7 +54,26 @@ class TeamResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (Tables\Actions\DeleteAction $action, Team $record) {
+                        if(Filament::getTenant()->id == $record->id){
+                            Notification::make()
+                                ->warning()
+                                ->title('Operation denied!')
+                                ->body('Can\' delete current team ')
+                                ->send();
+                            $action->cancel();
+                        }
+    
+                        if(Team::get()->count() == 1){
+                            Notification::make()
+                            ->warning()
+                            ->title('Operation denied!')
+                            ->body('You can\'t delete all team ')
+                            ->send();
+                            $action->cancel();
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
