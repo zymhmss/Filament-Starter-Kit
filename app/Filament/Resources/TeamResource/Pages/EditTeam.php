@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\TeamResource\Pages;
 
-use App\Filament\Resources\TeamResource;
+use App\Models\Team;
 use Filament\Actions;
+use App\Filament\Resources\TeamResource;
 use Filament\Resources\Pages\EditRecord;
 
 class EditTeam extends EditRecord
@@ -13,7 +14,12 @@ class EditTeam extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->before(function(
+                    Actions\DeleteAction $action, Team $record
+                ) {
+                    $this->getResource()::checkTeamIsDeleteable($record->id, fn() => $action->cancel());
+                }),
         ];
     }
 

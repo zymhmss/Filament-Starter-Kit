@@ -2,18 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TeamResource\Pages;
-use App\Filament\Resources\TeamResource\RelationManagers;
-use App\Models\Team;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Notifications\Notification;
+use App\Models\Team;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use App\Filament\Resources\TeamResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TeamResource\RelationManagers;
 
 class TeamResource extends Resource
 {
@@ -56,28 +57,19 @@ class TeamResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function (Tables\Actions\DeleteAction $action, Team $record) {
-                        if(Filament::getTenant()->id == $record->id){
-                            Notification::make()
-                                ->warning()
-                                ->title('Operation denied!')
-                                ->body('Can\' delete current team ')
-                                ->send();
-                            $action->cancel();
-                        }
-    
-                        if(Team::get()->count() == 1){
-                            Notification::make()
-                            ->warning()
-                            ->title('Operation denied!')
-                            ->body('You can\'t delete all team ')
-                            ->send();
-                            $action->cancel();
-                        }
+                        self::checkTeamIsDeleteable($record->id, fn() => $action->cancel());
                     }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->action(function(
+                            Tables\Actions\DeleteBulkAction $action, Collection $selectedRecords
+                        ) {
+                            foreach ($selectedRecords as $team) {
+                                self::checkTeamIsDeleteable($team->id, fn() => $action->cancel());
+                            }
+                        }),
                 ]),
             ]);
     }
@@ -96,5 +88,18 @@ class TeamResource extends Resource
             'create' => Pages\CreateTeam::route('/create'),
             'edit' => Pages\EditTeam::route('/{record}/edit'),
         ];
+    }
+
+    public static function checkTeamIsDeleteable($team_id, callable $callback = null) {
+        if(Filament::getTenant()->id == $team_id){
+            Notification::make()
+                ->warning()
+                ->title('Operation denied!')
+                ->body('Can\' delete current team ')
+                ->send();
+            if($callback) {
+                $callback();
+            }
+        }
     }
 }
