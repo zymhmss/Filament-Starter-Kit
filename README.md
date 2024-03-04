@@ -1,6 +1,6 @@
 # Filament Starter Kit
 
-Filament Starter Kit is a distribution of [Filament](https://filamentphp.com/) with a variety of pre-installed components.
+Filament Starter Kit is a distribution of [Filament](https://filamentphp.com/) with a variety of pre-installed components. And remember, simple things are the best for your starting point.
 
 ## New Installation
 
