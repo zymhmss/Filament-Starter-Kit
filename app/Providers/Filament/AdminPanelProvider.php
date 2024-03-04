@@ -25,11 +25,6 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                \BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin::make(),
-
-            ])
             ->default()
             ->id('admin')
             ->path('admin')
@@ -71,6 +66,10 @@ class AdminPanelProvider extends PanelProvider
             ->tenant(
                 Team::class,
                 slugAttribute: 'slug'
-            );
+            )
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                \BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin::make(),
+            ]);
     }
 }
