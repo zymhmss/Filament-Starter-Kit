@@ -53,5 +53,9 @@ This Starter Kit incorporates the Filament Shield plugin for roles and permissio
 
 All relevant migrations, views, and config files have been published to the main Laravel directory tree in the expected locations. If a package, such as the Spatie packages, is based on another package, the base package migrations and config files are also published.
 
+# Production Section
+When it comes to production, make sure you implement FilamentUser in your User Model, and add canAccessPanel function
+reference: https://filamentphp.com/docs/3.x/panels/installation#deploying-to-production
+
 ## License 
 The MIT License. Please see [the license file](LICENSE.md) for more information.
